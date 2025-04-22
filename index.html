@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Photo Booth</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <i class="fas fa-camera-retro"></i>
+                <span>Virtual Photo Booth</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
+                <li class="nav-item"><a href="#booth" class="nav-link">Photo Booth</a></li>
+                <li class="nav-item"><a href="#guide" class="nav-link">How to Use</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        
+        <!-- Home Section -->
+        <section id="home" class="section">
+            <div class="hero">
+                <h1>Virtual Photo Booth</h1>
+                <p class="tagline">Capture moments, add filters, and create memories!</p>
+                <a href="#booth" class="btn primary-btn hero-btn">Start Now</a>
+            </div>
+        </section>
+
+        <!-- Guide Section -->
+        <section id="guide" class="section guide-section">
+            <h2>How to Use</h2>
+            <div class="guide-container">
+                <div class="guide-card">
+                    <div class="guide-icon"><i class="fas fa-camera"></i></div>
+                    <h3>1. Capture</h3>
+                    <p>Allow camera access and position yourself in the frame. Use the timer if needed.</p>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-icon"><i class="fas fa-magic"></i></div>
+                    <h3>2. Customize</h3>
+                    <p>Choose from various filters, frames, and layouts to personalize your photo.</p>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-icon"><i class="fas fa-edit"></i></div>
+                    <h3>3. Edit</h3>
+                    <p>Add stickers, adjust position, and make your photo perfect.</p>
+                </div>
+                <div class="guide-card">
+                    <div class="guide-icon"><i class="fas fa-download"></i></div>
+                    <h3>4. Save & Share</h3>
+                    <p>Download your creation or share directly to social media.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Photo Booth Section -->
+        <section id="booth" class="section booth-section">
+            <h2>Photo Booth</h2>
+            <div class="booth-container">
+            <div class="camera-container">
+                <video id="camera" autoplay playsinline></video>
+                <div id="countdown" class="countdown"></div>
+                <div id="flash" class="flash"></div>
+                <img id="current-frame" class="frame-overlay" src="" alt="">
+                <div id="face-detection-box" class="face-detection-box"></div>
+                <div class="camera-status">
+                    <span id="camera-status-text">Camera Ready</span>
+                    <span class="camera-indicator"></span>
+                </div>
+            </div>
+            
+            <div class="preview-container">
+                <div id="photostrip-preview">
+                    <canvas id="canvas" width="1280" height="720"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <h3>Camera Controls</h3>
+                <button id="capture-btn" class="btn primary-btn"><i class="fas fa-camera"></i> Take Photo</button>
+                <div class="timer-controls">
+                    <button id="timer-btn" class="btn"><i class="fas fa-stopwatch"></i> Timer</button>
+                    <div class="timer-dropdown">
+                        <button class="timer-option" data-seconds="3">3s</button>
+                        <button class="timer-option" data-seconds="5">5s</button>
+                        <button class="timer-option" data-seconds="10">10s</button>
+                    </div>
+                </div>
+                <button id="boomerang-btn" class="btn"><i class="fas fa-sync-alt"></i> Boomerang Mode</button>
+            </div>
+            
+            <div class="control-group">
+                <h3>Filters</h3>
+                <div class="filter-options">
+                    <button class="filter-btn active" data-filter="none">Normal</button>
+                    <button class="filter-btn" data-filter="grayscale">B&W</button>
+                    <button class="filter-btn" data-filter="sepia">Sepia</button>
+                    <button class="filter-btn" data-filter="vintage">Vintage</button>
+                    <button class="filter-btn" data-filter="pink">Pink Glow</button>
+                    <button class="filter-btn" data-filter="vhs">VHS/Glitch</button>
+                    <button class="filter-btn" data-filter="warm">Warm Sunset</button>
+                    <button class="filter-btn" data-filter="cool">Cool Blue</button>
+                    <button class="filter-btn" data-filter="green">Green Pop</button>
+                    <button class="filter-btn" data-filter="neon">Glow Neon</button>
+                    <button class="filter-btn" data-filter="dramatic">Dramatic</button>
+                    <button class="filter-btn" data-filter="pastel">Pastel Dream</button>
+                    <button class="filter-btn" data-filter="blur">Blur Edge</button>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h3>Frames</h3>
+                <div class="frame-category-tabs">
+                    <button class="frame-category active" data-category="funny">Funny</button>
+                    <button class="frame-category" data-category="cool">Cool</button>
+                    <button class="frame-category" data-category="event">Events</button>
+                </div>
+                <div class="frame-options">
+                    <button class="frame-btn active" data-frame="none">No Frame</button>
+                    <button class="frame-btn" data-frame="assets/filters/funny/frame1.png">Pastel</button>
+                    <button class="frame-btn" data-frame="assets/filters/funny/frame2.png">Cartoon</button>
+                    <button class="frame-btn" data-frame="assets/filters/funny/frame3.png">Emoji</button>
+                    <button class="frame-btn" data-frame="assets/filters/funny/frame4.png">Comic</button>
+                    <button class="frame-btn" data-frame="assets/filters/cool/frame1.png">Elegant</button>
+                    <button class="frame-btn" data-frame="assets/filters/cool/frame2.png">Monochrome</button>
+                    <button class="frame-btn" data-frame="assets/filters/event/frame1.png">Birthday</button>
+                    <button class="frame-btn" data-frame="assets/filters/event/frame2.png">Wedding</button>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <h3>Layout</h3>
+                <div class="layout-options">
+                    <button class="layout-btn active" data-layout="single">Single</button>
+                    <button class="layout-btn" data-layout="strip-2">2 Photos</button>
+                    <button class="layout-btn" data-layout="strip-4">4 Photos</button>
+                    <button class="layout-btn" data-layout="grid">2×2 Grid</button>
+                </div>
+            </div>
+            
+            <div class="control-group editor-controls">
+                <h3>Editor</h3>
+                <div class="sticker-container">
+                    <button class="sticker-btn" data-sticker="sparkle"><i class="fas fa-star"></i> Sparkle</button>
+                    <button class="sticker-btn" data-sticker="confetti"><i class="fas fa-certificate"></i> Confetti</button>
+                    <button class="sticker-btn" data-sticker="text"><i class="fas fa-font"></i> Add Text</button>
+                    <button class="sticker-btn" data-sticker="heart"><i class="fas fa-heart"></i> Hearts</button>
+                    <button class="sticker-btn" data-sticker="emoji"><i class="fas fa-smile"></i> Emoji</button>
+                </div>
+                <div class="editor-adjustments">
+                    <h4>Adjustments</h4>
+                    <div class="adjustment-controls">
+                        <div class="adjustment-item">
+                            <label for="brightness-slider">Brightness</label>
+                            <input type="range" id="brightness-slider" min="-100" max="100" value="0" class="slider">
+                        </div>
+                        <div class="adjustment-item">
+                            <label for="contrast-slider">Contrast</label>
+                            <input type="range" id="contrast-slider" min="-100" max="100" value="0" class="slider">
+                        </div>
+                        <div class="adjustment-item">
+                            <label for="saturation-slider">Saturation</label>
+                            <input type="range" id="saturation-slider" min="-100" max="100" value="0" class="slider">
+                        </div>
+                    </div>
+                </div>
+                <div class="editor-actions">
+                    <button id="download-btn" class="btn primary-btn" disabled><i class="fas fa-download"></i> Download</button>
+                    <button id="share-btn" class="btn" disabled><i class="fas fa-share-alt"></i> Share</button>
+                    <button id="reset-editor-btn" class="btn"><i class="fas fa-eraser"></i> Reset Editor</button>
+                    <button id="reset-btn" class="btn"><i class="fas fa-redo"></i> Reset All</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    
+
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Virtual Photo Booth. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+            </div>
+        </div>
+    </footer>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
